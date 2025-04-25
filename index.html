@@ -4,29 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Real-Time Monitoring Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
+    
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        .progress-bar {
-            width: 100%;
-            background: #ddd;
-            border-radius: 5px;
-            overflow: hidden;
-            height: 20px;
-        }
-        .progress {
-            height: 100%;
-            width: 0%;
-            transition: width 0.5s;
-        }
-        .cpu .progress { background: blue; }
-        .memory .progress { background: green; }
-        .disk .progress { background: red; }
-    </style>
+
+    <link rel="stylesheet" href="style.css">
+    
+<!-- 
+/* C:\Users\ASUS\OneDrive\Desktop\OS proj\OS 
+
+python -m uvicorn main:app --reload
+
+*/ -->
+       
 </head>
 <body>
     <div class="container">
-        <h1>Real-Time Monitoring Dashboard</h1>
+        <h1 style="color: cyan;">Real-Time Monitoring Dashboard</h1>
+
         <div class="stats-container">
             <div class="stat-card">
                 <h2>CPU Usage</h2>
@@ -44,80 +38,32 @@
                 <p id="diskUsage">Loading...</p>
             </div>
         </div>
+
         <button onclick="fetchProcesses()" class="refresh-btn">Refresh Data</button>
+
         <div class="chart-container">
             <canvas id="memoryChart"></canvas>
         </div>
+
         <div class="table-container">
-            <table>
+            <table id="processTable">
                 <thead>
                     <tr>
                         <th>Process Name</th>
                         <th>PID</th>
                         <th>Memory Usage (%)</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
-                <tbody id="processTable">
-                    <!-- Data will be dynamically loaded here -->
-                </tbody>
+                <tbody id="processBody"></tbody>
             </table>
         </div>
     </div>
-    <script>
-        function fetchProcesses() {
-            const cpuUsage = Math.floor(Math.random() * 80) + 10;
-            const memoryUsage = Math.floor(Math.random() * 80) + 10;
-            const diskUsage = Math.floor(Math.random() * 80) + 10;
 
-            document.getElementById("cpuProgress").style.width = cpuUsage + "%";
-            document.getElementById("memoryProgress").style.width = memoryUsage + "%";
-            document.getElementById("diskProgress").style.width = diskUsage + "%";
 
-            document.getElementById("cpuUsage").innerText = cpuUsage + "%";
-            document.getElementById("memoryUsage").innerText = memoryUsage + "%";
-            document.getElementById("diskUsage").innerText = diskUsage + "%";
+    <script src="script.js"></script>
 
-            // Dummy process data
-            const processTable = document.getElementById("processTable");
-            processTable.innerHTML = ""; // Clear existing rows
-            
-            const processes = [
-                { name: "Chrome", pid: 1234, usage: Math.floor(Math.random() * 50) + 10 },
-                { name: "Explorer", pid: 5678, usage: Math.floor(Math.random() * 50) + 10 },
-                { name: "Discord", pid: 9101, usage: Math.floor(Math.random() * 50) + 10 },
-                { name: "VS Code", pid: 1121, usage: Math.floor(Math.random() * 50) + 10 },
-                { name: "Spotify", pid: 3141, usage: Math.floor(Math.random() * 50) + 10 },
-                { name: "Slack", pid: 5161, usage: Math.floor(Math.random() * 50) + 10 },
-                { name: "Zoom", pid: 7181, usage: Math.floor(Math.random() * 50) + 10 },
-                { name: "Teams", pid: 9202, usage: Math.floor(Math.random() * 50) + 10 },
-                { name: "Edge", pid: 1323, usage: Math.floor(Math.random() * 50) + 10 },
-                { name: "Notepad", pid: 4455, usage: Math.floor(Math.random() * 50) + 10 },
-                { name : "Microsoft Edge", pid:8765, usage: Math.floor(Math.random()*50)+10},
-                { name: "File Explorer", pid: 4321, usage: Math.floor(Math.random() * 50) + 10 },
-                { name: "Brave", pid: 5679, usage: Math.floor(Math.random() * 50) + 10 },
-                { name: "CodeTantra", pid: 9102, usage: Math.floor(Math.random() * 50) + 10 },
-                { name: "Whatsapp", pid: 2143, usage: Math.floor(Math.random() * 50) + 10 },
-                { name: "Telegram", pid: 6154, usage: Math.floor(Math.random() * 50) + 10 },
-                { name: "VS Code", pid: 3122, usage: Math.floor(Math.random() * 50) + 10 },
-                { name: "intelliJ IDEA", pid: 9182, usage: Math.floor(Math.random() * 50) + 10 },
-                { name: "Ecllipse", pid: 5672, usage: Math.floor(Math.random() * 50) + 10 },
-                { name: "Pycham", pid: 7654, usage: Math.floor(Math.random() * 50) + 10 },
-                { name: "Firefox", pid: 7654, usage: Math.floor(Math.random() * 50) + 10 },
-            ];
-            
-            processes.forEach(proc => {
-                const row = `<tr>
-                    <td>${proc.name}</td>
-                    <td>${proc.pid}</td>
-                    <td>${proc.usage}%</td>
-                </tr>`;
-                processTable.innerHTML += row;
-            });
-        }
+    
 
-        window.onload = fetchProcesses;
-    </script>
-</body>
 </body>
 </html>
-
